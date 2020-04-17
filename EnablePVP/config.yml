@@ -1,9 +1,23 @@
 #"JavaSE.pvp.reload" for /pvp reload
-#Use "JavaSE.pvp" for allowing pvp
-commandOnUse:
+#Use "JavaSE.pvp.enable" for /pvp enable
+#This is the amount of time (in seconds) that it will take before we change the users mode.
+enableDelay: 0
+preEnableMessage: ''
+commandsOnEnable:
   - give javase diamond 1
   - ban omgtitrandufett ur dumb
 kickOnEnable: true
-kickMessage: '&9Your role has changed. Please relog to confirm this change'
-broadcastMessage: '%player% has enabled PVP mode! '
-playerMessage: '&4You have enabled PVP! You must relog to enable these changes!'
+kickOnEnableMessage: '&9Your role has changed. Please relog to confirm this change'
+broadcastOnEnableMessage: '%player% has enabled PVP mode! '
+playerOnEnableMessage: '&4You have enabled PVP! You must relog to enable these changes!'
+#Use "JavaSE.pvp.disable" for /pvp disable
+disableDelay: 30
+#This is the amount of time (in seconds) that it will take before we change the users mode.
+preDisableMessage: 'Pvp will disable in 30 seconds'
+commandsOnDisable:
+  - give javase diamond 1
+  - ban omgtitrandufett ur dumb
+kickOnDisable: true
+kickOnDisableMessage: '&9Your role has changed. Please relog to confirm this change'
+broadcastOnDisableMessage: '%player% has disabled PVP mode! '
+playerOnDisableMessage: '&4You have disabled PVP! You must relog to enable these changes!'

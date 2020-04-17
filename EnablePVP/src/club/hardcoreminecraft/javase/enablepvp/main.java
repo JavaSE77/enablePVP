@@ -36,25 +36,103 @@ public class main extends JavaPlugin {
         sender.sendMessage(ChatColor.DARK_RED + "Sorry! This command can only be done by players");
         return false;
       } 
-      Player player = (Player)sender;
-      pvpEnable(player);
+      
+      if (args.length == 1 && args[0].equalsIgnoreCase("enable")) {
+          if (sender.hasPermission("JavaSE.pvp.enable")) {
+        	  
+        	  int delay = getConfig().getInt("enableDelay") * 20;
+	             final Player player = (Player) sender;
+	             
+	     	    String pm = getConfig().getString("preEnableMessage");
+	    	    if (pm != null && !pm.isEmpty())
+	    	      player.sendMessage(pm.replaceAll("&", "§").replaceAll("%player%", player.getName()));
+	             
+     	  Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+			    @Override
+			    public void run() {
+
+
+	              pvpEnable(player);
+			       
+			    }
+
+
+			},delay);
+            return true;
+          } 
+          sender.sendMessage(ChatColor.DARK_RED + "JavaSE has personally forbidden you from using this command.");
+        } 
+      
+      if (args.length == 1 && args[0].equalsIgnoreCase("disable")) {
+          if (sender.hasPermission("JavaSE.pvp.disable")) {
+        	  int delay = getConfig().getInt("disableDelay") * 20;
+
+	             final Player player = (Player) sender;
+	             
+		     	    String pm = getConfig().getString("preDisableMessage");
+		    	    if (pm != null && !pm.isEmpty())
+		    	      player.sendMessage(pm.replaceAll("&", "§").replaceAll("%player%", player.getName()));
+	             
+        	  Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+  			    @Override
+  			    public void run() {
+
+
+  	              pvpDisable(player);
+  			       
+  			    }
+
+
+  			},delay);
+            return true;
+          } 
+          sender.sendMessage(ChatColor.DARK_RED + "JavaSE has personally forbidden you from using this command.");
+        } 
+      
+      sender.sendMessage(ChatColor.RED + "Use " + ChatColor.GOLD + "/pvp enable " + ChatColor.RED + "to enable pvp. "
+    		  + "Use " + ChatColor.GOLD + "/pvp disable " + ChatColor.RED + "to disable pvp.");
+     
+
     } 
     return false;
   }
   
   public void pvpEnable(Player player) {
-    String pm = getConfig().getString("playerMessage");
+	  if(!player.isOnline()) return;
+	  
+    String pm = getConfig().getString("playerOnEnableMessage");
     if (pm != null && !pm.isEmpty())
       player.sendMessage(pm.replaceAll("&", "§").replaceAll("%player%", player.getName()));
-    String bm = getConfig().getString("broadcastMessage");
+    String bm = getConfig().getString("broadcastOnEnableMessage");
     if (bm != null && !bm.isEmpty())
       player.sendMessage(bm.replaceAll("&", "§").replaceAll("%player%", player.getName())); 
-    List<String> list = getConfig().getStringList("commandOnUse");
+    List<String> list = getConfig().getStringList("commandsOnEnable");
     for (String string : list)
       Bukkit.getServer().dispatchCommand((CommandSender)Bukkit.getServer().getConsoleSender(), string.replaceAll("%player%", player.getName())); 
     if (getConfig().getBoolean("kickOnEnable")) {
-      String kickmsg = getConfig().getString("kickMessage");
+      String kickmsg = getConfig().getString("kickOnEnableMessage");
       player.kickPlayer(kickmsg.replaceAll("&", "§"));
     } 
   }
+  
+  public void pvpDisable(Player player) {
+	  if(!player.isOnline()) return;
+	  
+	    String pm = getConfig().getString("playerOnDisableMessage");
+	    if (pm != null && !pm.isEmpty())
+	      player.sendMessage(pm.replaceAll("&", "§").replaceAll("%player%", player.getName()));
+	    String bm = getConfig().getString("broadcastOnDisableMessage");
+	    if (bm != null && !bm.isEmpty())
+	      player.sendMessage(bm.replaceAll("&", "§").replaceAll("%player%", player.getName())); 
+	    List<String> list = getConfig().getStringList("commandsOnDisable");
+	    for (String string : list)
+	      Bukkit.getServer().dispatchCommand((CommandSender)Bukkit.getServer().getConsoleSender(), string.replaceAll("%player%", player.getName())); 
+	    if (getConfig().getBoolean("kickOnDisable")) {
+	      String kickmsg = getConfig().getString("kickOnDisableMessage");
+	      player.kickPlayer(kickmsg.replaceAll("&", "§"));
+	    } 
+	  
+  }
+  
+  
 }

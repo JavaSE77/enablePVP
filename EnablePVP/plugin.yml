@@ -7,7 +7,9 @@ commands:
   pvp:
     description: See the servers info. Default arg has no permission. JavaSE.info.arg
 permissions:
-  JavaSE.pvp:
+  JavaSE.pvp.enable:
+    default: true
+  JavaSE.pvp.disable:
     default: true
   JavaSE.pvp.reload:
     default: op
