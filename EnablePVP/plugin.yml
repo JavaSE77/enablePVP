@@ -1,0 +1,13 @@
+main: club.hardcoreminecraft.javase.enablepvp.main
+name: enablePVP
+description: type /pvp to change a user into pvp mode
+author: JavaSE
+version: 1.0.0
+commands:
+  pvp:
+    description: See the servers info. Default arg has no permission. JavaSE.info.arg
+permissions:
+  JavaSE.pvp:
+    default: true
+  JavaSE.pvp.reload:
+    default: op

@@ -1,0 +1,9 @@
+#"JavaSE.pvp.reload" for /pvp reload
+#Use "JavaSE.pvp" for allowing pvp
+commandOnUse:
+  - give javase diamond 1
+  - ban omgtitrandufett ur dumb
+kickOnEnable: true
+kickMessage: '&9Your role has changed. Please relog to confirm this change'
+broadcastMessage: '%player% has enabled PVP mode! '
+playerMessage: '&4You have enabled PVP! You must relog to enable these changes!'
